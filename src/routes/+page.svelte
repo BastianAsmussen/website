@@ -2,8 +2,6 @@
 	import '../app.css';
 </script>
 
-<slot />
-
 <svelte:head>
     <title>Bastian Asmussen</title>
     <meta name="description" content="Backend Developer, and Open Source Enthusiast.">
