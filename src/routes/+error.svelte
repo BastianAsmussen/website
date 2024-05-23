@@ -4,13 +4,17 @@
 </script>
 
 <svelte:head>
-    <title>Bastian Asmussen</title>
-    <meta name="description" content="Backend Developer, and Open Source Enthusiast.">
+    <title>{$page.status} - {$page.error.message}</title>
+    <meta name="description" content="Oops, something went wrong. Please try again or contact me if the problem persists." />
 </svelte:head>
 
-<div class="flex flex-col items-center justify-center h-screen bg-white dark:bg-gray-900 text-black dark:text-white">
-    <h1 class="text-9xl font-bold text-red-500">{$page.status} - {$page.error.message}</h1>
-    <button on:click={() => location.href = '/'} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-10">Go Home</button>
+<div class="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-gray-900">
+    <h1 class="text-6xl font-bold text-red-500">{$page.status} - {$page.error.message}</h1>
+    <p class="mt-4 text-xl">Oops, something went wrong. Please try again or contact me if the problem persists.</p>
+    <div class="mt-8">
+        <button on:click={() => location.href = '/'} class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">Go Home</button>
+        <button on:click={() => location.href = '/contact'} class="ml-4 px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700">Contact Me</button>
+    </div>
 </div>
 
 <style lang="postcss">
