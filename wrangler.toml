@@ -1,6 +1,4 @@
 name = "website"
 
 pages_build_output_dir = "/.svelte-kit/cloudflare"
-
-compatibility_date = "2021-11-12"
 compatibility_flags = [ "nodejs_compat" ]
