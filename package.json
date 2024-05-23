@@ -12,8 +12,7 @@
 		"format": "prettier --write ."
 	},
   "engines": { 
-    "node": "^18.18.0 || >=20.0.0",
-    "npm": "^8.0.0"
+    "node": "^18.18.0 || >=20.0.0"
   },
 	"devDependencies": {
 		"@sveltejs/adapter-cloudflare": "^3.0.2",
