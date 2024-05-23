@@ -1,6 +1,5 @@
 <form
 	method="POST"
-	action="https://worker.asmussen.tech/"
 	class="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-gray-900"
 >
 	<h1 class="text-6xl font-bold text-blue-500">Contact Me</h1>
