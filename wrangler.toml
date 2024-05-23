@@ -1,0 +1,7 @@
+name = "website
+account_id = "f109142c3e07443a94036e50f2607503"
+
+build.command = "npm run build"
+
+compatibility_date = "2021-11-12"
+compatibility_flags = [ "nodejs_compat" ]
