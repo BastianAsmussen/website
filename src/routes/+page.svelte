@@ -15,7 +15,7 @@
 	</p>
 
 	<p class="text-lg text-gray-300 p-5 text-center">
-		Contact me <a href="mailto:contact@asmussen.tech" class="text-blue-500">here</a>.
+		Contact me <a href="mailto:contact@asmussen.tech" class="text-blue-500 hover:underline">here</a> if you have any questions or just want to chat!
 	</p>
 </main>
 
