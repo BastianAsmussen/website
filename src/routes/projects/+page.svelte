@@ -28,11 +28,11 @@
 
 <SideBar />
 
-<h1 class="text-5xl font-bold dark:text-white p-10 text-center">Projects</h1>
+<h1 class="text-5xl font-bold text-white p-10 text-center">Projects</h1>
 
 {#await fetchProjects()}
 	<div class="p-10 text-center">
-		<p class="mt-4 text-lg dark:text-gray-300">Fetching projects from GitHub...</p>
+		<p class="mt-4 text-lg text-gray-300">Fetching projects from GitHub...</p>
 	</div>
 {:then projects}
 	<div class="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-4 lg:grid-cols-3 lg:gap-6 p-10">
@@ -41,12 +41,12 @@
 				href={project.url}
 				target="_blank"
 				rel="noopener"
-				class="p-4 bg-white rounded shadow-md dark:bg-gray-800 hover:shadow-lg hover:scale-105 transition duration-300"
+				class="p-4 rounded shadow-md bg-gray-800 hover:shadow-lg hover:scale-105 transition duration-300"
 			>
-				<h2 class="text-2xl font-bold dark:text-white">
+				<h2 class="text-2xl font-bold text-white">
 					{project.name}
 				</h2>
-				<p class="mt-2 text-lg text-gray-900 dark:text-gray-300">
+				<p class="mt-2 text-lg text-gray-300">
 					{project.description}
 				</p>
 				<div class="flex justify-between mt-4">
@@ -58,8 +58,8 @@
 	</div>
 {:catch someError}
 	<div class="p-10 text-center">
-		<h1 class="text-4xl font-bold dark:text-white">Error</h1>
-		<p class="mt-4 text-lg dark:text-gray-300">
+		<h1 class="text-4xl font-bold text-white">Error</h1>
+		<p class="mt-4 text-lg text-gray-300">
 			{someError.message}
 		</p>
 	</div>
