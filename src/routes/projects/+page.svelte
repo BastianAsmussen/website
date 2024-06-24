@@ -2,16 +2,18 @@
 	import SideBar from '$lib/SideBar.svelte';
 
 	async function fetchProjects() {
-		const res = await fetch('https://api.github.com/users/BastianAsmussen/repos');
+		const res = await fetch('https://api.github.com/users/BastianAsmussen/repos?per_page=100');
 		const data = await res.json();
 
 		let projects = data.map((project) => {
+			console.log(project.name);
+
 			return {
 				name: project.name,
 				description: project.description || 'No description provided...',
 				url: project.html_url,
 				language: project.language || 'N/A',
-				date: project.created_at,
+				date: project.updated_at,
 				archived: project.archived
 			};
 		});

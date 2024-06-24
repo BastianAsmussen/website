@@ -7,10 +7,6 @@
 	</a>
 
 	<div class="flex items-center space-x-4">
-		<a
-			href="/projects"
-			class="text-lg font-bold text-gray-100 hover:text-gray-200"
-			>Projects</a
-		>
+		<a href="/projects" class="text-lg font-bold text-gray-100 hover:text-gray-200">Projects</a>
 	</div>
 </nav>

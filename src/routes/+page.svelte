@@ -9,11 +9,11 @@
 
 	function getGreeting(time: Date): [string, string] {
 		if (time.getHours() < 12) {
-			return ["Good morning", "text-yellow-400"];
+			return ['Good morning', 'text-yellow-400'];
 		} else if (time.getHours() < 18) {
-			return ["Good afternoon", "text-green-400"];
+			return ['Good afternoon', 'text-green-400'];
 		} else {
-			return ["Good evening", "text-blue-400"];
+			return ['Good evening', 'text-blue-400'];
 		}
 	}
 
@@ -32,14 +32,15 @@
 
 <main class="flex flex-col items-center justify-center">
 	<h1 class="text-5xl font-extrabold text-white p-10 text-center">
-		<span class="{greeting_color}">{greeting_text}</span>, I'm Bastian Asmussen!
+		<span class={greeting_color}>{greeting_text}</span>, I'm Bastian Asmussen!
 	</h1>
 	<p class="text-lg text-gray-300 p-5 text-center">
 		I'm a software engineer who loves to build things with code and share my knowledge with others.
 	</p>
 
 	<p class="text-lg text-gray-300 p-5 text-center">
-		Contact me <a href="mailto:contact@asmussen.tech" class="text-blue-500 hover:underline">here</a> if you have any questions or just want to chat!
+		Contact me <a href="mailto:contact@asmussen.tech" class="text-blue-500 hover:underline">here</a>
+		if you have any questions or just want to chat!
 	</p>
 </main>
 
