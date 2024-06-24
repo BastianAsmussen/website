@@ -1,7 +1,7 @@
 <script type="module">
 	import SideBar from '$lib/SideBar.svelte';
 
-	async function fetchProjects(limit = 10) {
+	async function fetchProjects() {
 		const res = await fetch('https://api.github.com/users/BastianAsmussen/repos');
 		const data = await res.json();
 
@@ -18,9 +18,6 @@
 
 		// Sort by updated date.
 		projects.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
-
-		// Limit the number of projects.
-		projects = projects.slice(0, limit);
 
 		return projects;
 	}
