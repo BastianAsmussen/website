@@ -6,8 +6,6 @@
 		const data = await res.json();
 
 		let projects = data.map((project) => {
-			console.log(project.name);
-
 			return {
 				name: project.name,
 				description: project.description || 'No description provided...',
