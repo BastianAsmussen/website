@@ -10,8 +10,5 @@
     build.exec = "npm run build";
   };
 
-  pre-commit.hooks = {
-    eslint.enable = true;
-    prettier.enable = true;
-  };
+  pre-commit.hooks.prettier.enable = true;
 }
