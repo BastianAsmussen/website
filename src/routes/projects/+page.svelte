@@ -1,23 +1,25 @@
 <script type="module">
 	import SideBar from '$lib/SideBar.svelte';
 
+	const repositoryBlacklist = ['BastianAsmussen'];
+
 	async function fetchProjects() {
-		const res = await fetch('https://api.github.com/users/BastianAsmussen/repos?per_page=100');
+		const res = await fetch('https://api.github.com/users/BastianAsmussen/repos');
 		const data = await res.json();
 
-		let projects = data.map((project) => {
-			return {
-				name: project.name,
-				description: project.description || 'No description provided...',
-				url: project.html_url,
-				language: project.language || 'N/A',
-				date: project.updated_at,
-				archived: project.archived
-			};
-		});
-
-		// Sort by updated date.
-		projects.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
+		let projects = data
+			.map((project) => {
+				return {
+					name: project.name,
+					description: project.description || 'No description provided...',
+					url: project.html_url,
+					language: project.language || 'N/A',
+					updatedAt: project.updated_at,
+					isArchived: project.archived
+				};
+			})
+			.filter((project) => !repositoryBlacklist.includes(project.name))
+			.sort((a, b) => Date.parse(b.updatedAt) - Date.parse(a.updatedAt));
 
 		return projects;
 	}
@@ -47,8 +49,10 @@
 					{project.description}
 				</p>
 				<div class="flex justify-between mt-4">
-					<p class="text-sm text-gray-500">{project.language}</p>
-					<p class="text-sm text-gray-500">{new Date(project.date).toLocaleDateString()}</p>
+					<p class="text-sm text-gray-500">Language: {project.language}</p>
+					<p class="text-sm text-gray-500">
+						Last Updated: {new Date(project.updatedAt).toLocaleDateString()}
+					</p>
 				</div>
 			</a>
 		{/each}
