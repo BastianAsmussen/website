@@ -11,9 +11,9 @@
 			.map((project) => {
 				return {
 					name: project.name,
-					description: project.description || 'No description provided...',
+					description: project.description || 'Ikke udfyldt.',
 					url: project.html_url,
-					language: project.language || 'N/A',
+					language: project.language || 'Intet',
 					updatedAt: project.updated_at,
 					isArchived: project.archived
 				};
@@ -27,11 +27,11 @@
 
 <SideBar />
 
-<h1 class="text-5xl font-bold text-white p-10 text-center">Projects</h1>
+<h1 class="text-5xl font-bold text-white p-10 text-center">Projekter</h1>
 
 {#await fetchProjects()}
 	<div class="p-10 text-center">
-		<p class="mt-4 text-lg text-gray-300">Fetching projects from GitHub...</p>
+		<p class="mt-4 text-lg text-gray-300">Henter projekter fra GitHub...</p>
 	</div>
 {:then projects}
 	<div class="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-4 lg:grid-cols-3 lg:gap-6 p-10">
@@ -49,9 +49,9 @@
 					{project.description}
 				</p>
 				<div class="flex justify-between mt-4">
-					<p class="text-sm text-gray-500">Language: {project.language}</p>
+					<p class="text-sm text-gray-500">Sprog: {project.language}</p>
 					<p class="text-sm text-gray-500">
-						Last Updated: {new Date(project.updatedAt).toLocaleDateString()}
+						Sidst Opdateret: {new Date(project.updatedAt).toLocaleDateString()}
 					</p>
 				</div>
 			</a>
@@ -59,7 +59,7 @@
 	</div>
 {:catch someError}
 	<div class="p-10 text-center">
-		<h1 class="text-4xl font-bold text-white">Error</h1>
+		<h1 class="text-4xl font-bold text-white">Fejl</h1>
 		<p class="mt-4 text-lg text-gray-300">
 			{someError.message}
 		</p>

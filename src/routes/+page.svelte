@@ -8,12 +8,16 @@
 	$: [greeting_text, greeting_color] = getGreeting(time);
 
 	function getGreeting(time: Date): [string, string] {
-		if (time.getHours() < 12) {
-			return ['Good morning', 'text-yellow-400'];
-		} else if (time.getHours() < 18) {
-			return ['Good afternoon', 'text-green-400'];
+		if (time.getHours() < 9) {
+			return ['God morgen', 'text-blue-400'];
+		} else if (time.getHours() < 12) {
+			return ['God formiddag', 'text-orange-400'];
+		} else if (time.getHours() < 13) {
+			return ['God middag', 'text-yellow-400'];
+		} else if (time.getHours() < 17) {
+			return ['God eftermiddag', 'text-green-400'];
 		} else {
-			return ['Good evening', 'text-blue-400'];
+			return ['God aften', 'text-blue-400'];
 		}
 	}
 
@@ -32,15 +36,15 @@
 
 <main class="flex flex-col items-center justify-center">
 	<h1 class="text-5xl font-extrabold text-white p-10 text-center">
-		<span class={greeting_color}>{greeting_text}</span>, I'm Bastian Asmussen!
+		<span class={greeting_color}>{greeting_text}</span>, mit navn er Bastian Asmussen!
 	</h1>
 	<p class="text-lg text-gray-300 p-5 text-center">
-		I'm a software engineer who loves to build things with code and share my knowledge with others.
+		Jeg er en programmør som elsker at kode og dele min viden med andre.
 	</p>
 
 	<p class="text-lg text-gray-300 p-5 text-center">
-		Contact me <a href="mailto:contact@asmussen.tech" class="text-blue-500 hover:underline">here</a>
-		if you have any questions or just want to chat!
+		Kontakt mig <a href="mailto:contact@asmussen.tech" class="text-blue-500 hover:underline">her</a>
+		hvis du har spørgsmål, eller bare vil snakke!
 	</p>
 </main>
 

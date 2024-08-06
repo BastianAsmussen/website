@@ -3,10 +3,10 @@
 >
 	<a href="/" class="flex items-center space-x-2">
 		<img src="/logo.png" alt="Logo" class="w-8 h-8" />
-		<span class="text-lg font-bold text-gray-100">Home</span>
+		<span class="text-lg font-bold text-gray-100">Hjem</span>
 	</a>
 
 	<div class="flex items-center space-x-4">
-		<a href="/projects" class="text-lg font-bold text-gray-100 hover:text-gray-200">Projects</a>
+		<a href="/projects" class="text-lg font-bold text-gray-100 hover:text-gray-200">Projekter</a>
 	</div>
 </nav>
