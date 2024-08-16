@@ -51,7 +51,7 @@
 				<div class="flex justify-between mt-4">
 					<p class="text-sm text-gray-500">Sprog: {project.language}</p>
 					<p class="text-sm text-gray-500">
-						Sidst Opdateret: {new Date(project.updatedAt).toLocaleDateString()}
+						Opdateret: {new Date(project.updatedAt).toLocaleDateString()}
 					</p>
 				</div>
 			</a>
