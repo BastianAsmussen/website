@@ -12,7 +12,7 @@ export async function GET() {
 		>
             <url>
                 <loc>https://www.asmussen.tech/</loc>
-                <lastmod>2024-08-06T13:57:57+02:00</lastmod>
+                <lastmod>2024-08-17T23:35:39+02:00</lastmod>
                 <changefreq>monthly</changefreq>
                 <priority>1.00</priority>
             </url>
