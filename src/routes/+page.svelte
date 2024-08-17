@@ -9,15 +9,15 @@
 
 	function getGreeting(time: Date): [string, string] {
 		if (time.getHours() < 9) {
-			return ['God morgen', 'text-blue-400'];
+			return ['God morgen', 'text-sky-500'];
 		} else if (time.getHours() < 12) {
-			return ['God formiddag', 'text-orange-400'];
+			return ['God formiddag', 'text-amber-500'];
 		} else if (time.getHours() < 13) {
-			return ['God middag', 'text-yellow-400'];
+			return ['God middag', 'text-yellow-500'];
 		} else if (time.getHours() < 17) {
-			return ['God eftermiddag', 'text-green-400'];
+			return ['God eftermiddag', 'text-lime-500'];
 		} else {
-			return ['God aften', 'text-blue-400'];
+			return ['God aften', 'text-indigo-500'];
 		}
 	}
 
