@@ -2,7 +2,7 @@
 	class="fixed lg:static bottom-0 left-0 right-0 z-10 flex items-center justify-between p-4 bg-gray-800 shadow-md"
 >
 	<a href="/" class="flex items-center space-x-2">
-		<img src="/logo.png" alt="Logo" class="w-8 h-8" />
+		<img src="/logo-32x32.webp" alt="Logo" />
 		<span class="text-lg font-bold text-gray-100">Hjem</span>
 	</a>
 
