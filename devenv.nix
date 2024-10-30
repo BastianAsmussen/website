@@ -1,7 +1,9 @@
-{ pkgs, ... }:
-
-{
-  packages = with pkgs; [ git nodejs ];
+{pkgs, ...}: {
+  packages = with pkgs; [
+    git
+    nodejs
+    vite
+  ];
 
   languages.typescript.enable = true;
 
