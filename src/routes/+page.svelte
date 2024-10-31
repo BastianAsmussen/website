@@ -43,7 +43,7 @@
 	</p>
 
 	<p class="text-lg text-gray-300 p-5 text-center">
-		Kontakt mig <a href="mailto:contact@asmussen.tech" class="text-blue-400 hover:underline">her</a>
+		Kontakt mig <a href="mailto:contact@asmussen.tech" class="text-blue-500 hover:underline">her</a>
 		hvis du har spørgsmål, eller bare vil snakke!
 	</p>
 </main>
