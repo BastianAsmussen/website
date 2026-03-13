@@ -1,0 +1,46 @@
+{{define "content"}}
+{{with .Post}}
+<div>
+  <!-- Breadcrumb -->
+  <div class="text-sm mb-6" style="color: var(--ctp-muted);">
+    <a href="/posts" class="hover:text-ctp-accent transition-colors" style="color: var(--ctp-subtext);">~/posts/</a>
+    <span>/</span>
+    <span>{{.Category}}/{{.Slug}}.md</span>
+  </div>
+
+  <!-- Header -->
+  <header class="mb-8">
+    <h1 class="text-3xl font-bold mb-3" style="color: var(--ctp-text);">{{.Title}}</h1>
+    <div class="flex items-center gap-3 flex-wrap text-sm">
+      {{if not (isZero .Date)}}
+      <time style="color: var(--ctp-muted);">{{formatDate .Date}}</time>
+      <span style="color: var(--ctp-surface);">·</span>
+      {{end}}
+      <span class="cat-{{.Category}}">{{.Category}}</span>
+      {{if .Tags}}
+      <span style="color: var(--ctp-surface);">·</span>
+      <div class="flex flex-wrap gap-1.5">
+        {{range .Tags}}
+        <a href="/posts?tag={{.}}" class="tag-chip">#{{.}}</a>
+        {{end}}
+      </div>
+      {{end}}
+    </div>
+  </header>
+
+  <!-- Divider -->
+  <div class="h-px w-full mb-8" style="background: var(--ctp-surface);"></div>
+
+  <!-- Post content (rendered markdown) -->
+  <div class="prose prose-ctp max-w-none text-sm leading-7">
+    {{.Content}}
+  </div>
+
+  <!-- Back link -->
+  <div class="mt-12 pt-6 border-t border-ctp-surface">
+    <a href="/posts" class="text-sm transition-colors hover:underline underline-offset-4"
+       style="color: var(--ctp-subtext);">← back to posts</a>
+  </div>
+</div>
+{{end}}
+{{end}}

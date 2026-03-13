@@ -1,0 +1,57 @@
+{{define "base"}}<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{.Title}}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <!-- theme flicker prevention: apply stored preference before paint -->
+  <script>
+    (function(){var t=localStorage.getItem('theme');if(t==='light'){document.documentElement.classList.remove('dark');}else{document.documentElement.classList.add('dark');}})();
+  </script>
+</head>
+<body class="bg-ctp-bg text-ctp-text font-mono min-h-screen antialiased">
+
+  <!-- Navigation -->
+  <header class="border-b border-ctp-surface">
+    <nav class="max-w-3xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-4 sm:gap-6 text-sm flex-wrap">
+        <a href="/"
+           class="{{if eq .NavPath "/"}}text-ctp-accent{{else}}text-ctp-subtext hover:text-ctp-text{{end}} transition-colors">~/</a>
+        <a href="/posts"
+           class="{{if eq .NavPath "/posts"}}text-ctp-accent{{else}}text-ctp-subtext hover:text-ctp-text{{end}} transition-colors">~/posts/</a>
+        <a href="/projects"
+           class="{{if eq .NavPath "/projects"}}text-ctp-accent{{else}}text-ctp-subtext hover:text-ctp-text{{end}} transition-colors">~/projects.md</a>
+        <a href="/about"
+           class="{{if eq .NavPath "/about"}}text-ctp-accent{{else}}text-ctp-subtext hover:text-ctp-text{{end}} transition-colors">~/about.md</a>
+      </div>
+
+      <!-- theme toggle -->
+      <button onclick="toggleTheme()"
+              aria-label="Toggle theme"
+              class="flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-xs border border-ctp-surface bg-ctp-bg-alt hover:border-ctp-muted transition-all">
+        <!-- sun (light mode icon) -->
+        <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2m0 14v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M3 12H1m22 0h-2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42M12 7a5 5 0 100 10A5 5 0 0012 7z" />
+        </svg>
+        <!-- moon (dark mode icon) -->
+        <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Content -->
+  <main class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+    {{block "content" .}}{{end}}
+  </main>
+
+  <script src="/static/js/theme.js"></script>
+  <script src="https://unpkg.com/htmx.org@1.9.12/dist/htmx.min.js"></script>
+</body>
+</html>
+{{end}}

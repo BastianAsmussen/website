@@ -1,22 +1,5 @@
-.DS_Store
+result*
 node_modules
-/build
-/.svelte-kit
-/package
+
 .env
-.env.*
 !.env.example
-vite.config.js.timestamp-*
-vite.config.ts.timestamp-*
-
-/.idea
-
-# Devenv
-.devenv*
-devenv.local.nix
-
-# direnv
-.direnv
-
-# pre-commit
-.pre-commit-config.yaml

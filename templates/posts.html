@@ -1,0 +1,70 @@
+{{define "content"}}
+<div>
+  <h1 class="text-2xl font-semibold mb-1" style="color: var(--ctp-accent);">~/posts/</h1>
+  <div class="h-px w-full mb-6" style="background: var(--ctp-surface);"></div>
+
+  <!-- Tag filter (HTMX powered) -->
+  <div class="flex flex-wrap gap-2 mb-8">
+    <a href="/posts"
+       hx-get="/posts"
+       hx-target="#posts-list"
+       hx-swap="innerHTML"
+       hx-push-url="true"
+       class="tag-chip {{if eq .SelectedTag ""}}active{{end}}">all</a>
+    {{range .AllTags}}
+    <a href="/posts?tag={{.}}"
+       hx-get="/posts?tag={{.}}"
+       hx-target="#posts-list"
+       hx-swap="innerHTML"
+       hx-push-url="true"
+       class="tag-chip {{if eq . $.SelectedTag}}active{{end}}">#{{.}}</a>
+    {{end}}
+  </div>
+
+  <!-- Posts list (swapped by HTMX) -->
+  <div id="posts-list">
+    {{template "posts-list" .}}
+  </div>
+</div>
+{{end}}
+
+{{define "posts-list"}}
+{{if .Posts}}
+  <ul class="space-y-8">
+    {{range .Posts}}
+    <li>
+      <article>
+        <div class="flex items-baseline gap-3 flex-wrap">
+          {{if not (isZero .Date)}}
+          <time class="text-xs shrink-0" style="color: var(--ctp-muted);">{{formatDate .Date}}</time>
+          {{end}}
+          <a href="/posts/{{.Category}}/{{.Slug}}"
+             class="font-medium hover:underline underline-offset-4 transition-colors"
+             style="color: var(--ctp-text);">{{.Title}}</a>
+          <span class="cat-{{.Category}} shrink-0">{{.Category}}</span>
+        </div>
+        {{if .Description}}
+        <p class="mt-1 text-sm" style="color: var(--ctp-subtext);">{{.Description}}</p>
+        {{end}}
+        {{if .Tags}}
+        <div class="mt-2 flex flex-wrap gap-1.5">
+          {{range .Tags}}
+          <a href="/posts?tag={{.}}"
+             hx-get="/posts?tag={{.}}"
+             hx-target="#posts-list"
+             hx-swap="innerHTML"
+             hx-push-url="true"
+             class="tag-chip">#{{.}}</a>
+          {{end}}
+        </div>
+        {{end}}
+      </article>
+    </li>
+    {{end}}
+  </ul>
+{{else}}
+  <p class="text-sm" style="color: var(--ctp-muted);">
+    {{if .SelectedTag}}No posts tagged <span class="tag-chip">#{{.SelectedTag}}</span>.{{else}}No posts yet.{{end}}
+  </p>
+{{end}}
+{{end}}

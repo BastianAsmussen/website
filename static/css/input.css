@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Catppuccin Latte (light). */
+  html {
+    --ctp-bg:      #eff1f5;
+    --ctp-bg-alt:  #e6e9ef;
+    --ctp-surface: #ccd0da;
+    --ctp-border:  #bcc0cc;
+    --ctp-text:    #4c4f69;
+    --ctp-subtext: #6c6f85;
+    --ctp-muted:   #9ca0b0;
+    --ctp-accent:  #1e66f5;
+    --ctp-teal:    #179299;
+    --ctp-green:   #40a02b;
+    --ctp-peach:   #fe640b;
+    --ctp-mauve:   #8839ef;
+    --ctp-red:     #d20f39;
+    --ctp-yellow:  #df8e1d;
+    --ctp-sapphire:#209fb5;
+    --ctp-sky:     #04a5e5;
+  }
+
+  /* Catppuccin Mocha (dark). */
+  html.dark {
+    --ctp-bg:      #1e1e2e;
+    --ctp-bg-alt:  #181825;
+    --ctp-surface: #313244;
+    --ctp-border:  #45475a;
+    --ctp-text:    #cdd6f4;
+    --ctp-subtext: #a6adc8;
+    --ctp-muted:   #6c7086;
+    --ctp-accent:  #89b4fa;
+    --ctp-teal:    #94e2d5;
+    --ctp-green:   #a6e3a1;
+    --ctp-peach:   #fab387;
+    --ctp-mauve:   #cba6f7;
+    --ctp-red:     #f38ba8;
+    --ctp-yellow:  #f9e2af;
+    --ctp-sapphire:#74c7ec;
+    --ctp-sky:     #89dceb;
+  }
+
+  html {
+    @apply font-mono;
+
+    background-color: var(--ctp-bg);
+    color: var(--ctp-text);
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  * {
+    @apply border-ctp-border;
+  }
+}
+
+@layer components {
+  .prose-ctp {
+    color: var(--ctp-text);
+  }
+
+  .prose-ctp :where(h1, h2, h3, h4, h5, h6) {
+    color: var(--ctp-text);
+    font-family: inherit;
+  }
+
+  .prose-ctp :where(a) {
+    color: var(--ctp-accent);
+    text-decoration-color: var(--ctp-accent);
+  }
+
+  .prose-ctp :where(strong) {
+    color: var(--ctp-text);
+  }
+
+  .prose-ctp :where(code):not(pre code) {
+    color: var(--ctp-teal);
+    background-color: var(--ctp-bg-alt);
+    border-radius: 0.25rem;
+    padding: 0.15em 0.4em;
+    font-size: 0.9em;
+  }
+
+  .prose-ctp :where(pre) {
+    background-color: var(--ctp-bg-alt) !important;
+    border: 1px solid var(--ctp-border);
+    border-radius: 0.5rem;
+  }
+
+  .prose-ctp :where(pre code) {
+    color: var(--ctp-text);
+    background: none;
+    padding: 0;
+  }
+
+  .prose-ctp :where(blockquote) {
+    border-left-color: var(--ctp-accent);
+    color: var(--ctp-subtext);
+    font-style: normal;
+  }
+
+  .prose-ctp :where(hr) {
+    border-color: var(--ctp-border);
+  }
+
+  .prose-ctp :where(table thead) {
+    border-bottom-color: var(--ctp-border);
+  }
+
+  .prose-ctp :where(table thead th) {
+    color: var(--ctp-text);
+  }
+
+  .prose-ctp :where(table tbody tr) {
+    border-bottom-color: var(--ctp-border);
+  }
+
+  .prose-ctp :where(ul > li)::marker {
+    color: var(--ctp-muted);
+  }
+
+  .prose-ctp :where(ol > li)::marker {
+    color: var(--ctp-muted);
+  }
+
+  .tag-chip {
+    @apply inline-block text-xs px-2 py-0.5 rounded transition-colors cursor-pointer;
+
+    color: var(--ctp-teal);
+    background-color: color-mix(in srgb, var(--ctp-teal) 12%, transparent);
+  }
+
+  .tag-chip:hover {
+    background-color: color-mix(in srgb, var(--ctp-teal) 25%, transparent);
+  }
+
+  .tag-chip.active {
+    background-color: color-mix(in srgb, var(--ctp-teal) 30%, transparent);
+    font-weight: 600;
+  }
+
+  /* Category badges. */
+  .cat-school {
+    color: var(--ctp-mauve);
+    background-color: color-mix(in srgb, var(--ctp-mauve) 15%, transparent);
+
+    @apply inline-block text-xs px-2 py-0.5 rounded;
+  }
+
+  .cat-work {
+    color: var(--ctp-peach);
+    background-color: color-mix(in srgb, var(--ctp-peach) 15%, transparent);
+
+    @apply inline-block text-xs px-2 py-0.5 rounded;
+  }
+
+  .cat-home {
+    color: var(--ctp-green);
+    background-color: color-mix(in srgb, var(--ctp-green) 15%, transparent);
+
+    @apply inline-block text-xs px-2 py-0.5 rounded;
+  }
+}

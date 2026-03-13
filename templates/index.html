@@ -1,0 +1,34 @@
+{{define "content"}}
+<div class="mt-4">
+  <!-- Site name with gradient -->
+  <h1 class="text-5xl font-bold mb-10" style="
+      background: linear-gradient(90deg, var(--ctp-accent), var(--ctp-teal));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    ">
+    {{.SiteName}}
+  </h1>
+
+  <!-- Tree view -->
+  <div class="text-ctp-muted select-none">.</div>
+  <div class="pl-0 space-y-1">
+    <div class="flex items-center gap-2">
+      <span class="text-ctp-surface select-none">├──</span>
+      <a href="/posts" class="text-ctp-teal hover:text-ctp-accent transition-colors">posts/</a>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="text-ctp-surface select-none">├──</span>
+      <a href="/projects" class="text-ctp-teal hover:text-ctp-accent transition-colors">projects.md</a>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="text-ctp-surface select-none">├──</span>
+      <a href="/about" class="text-ctp-teal hover:text-ctp-accent transition-colors">about.md</a>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="text-ctp-surface select-none">└──</span>
+      <link rel="alternate" type="application/rss+xml" title="rss.xml" href="/feed.xml" />
+    </div>
+  </div>
+</div>
+{{end}}

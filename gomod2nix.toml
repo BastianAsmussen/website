@@ -1,0 +1,14 @@
+schema = 3
+
+[mod]
+  [mod.'github.com/yuin/goldmark']
+    version = 'v1.7.16'
+    hash = 'sha256-eG9hMzRG1XLk9MrPN4bRFkTLEQbeYY+xsxdj6Tuo6po='
+
+  [mod.'github.com/yuin/goldmark-meta']
+    version = 'v1.1.0'
+    hash = 'sha256-Q/kRP4rpS3r24HYBvPTiuKNbf+PUMVsEp2m6yOblth0='
+
+  [mod.'gopkg.in/yaml.v2']
+    version = 'v2.4.0'
+    hash = 'sha256-uVEGglIedjOIGZzHW4YwN1VoRSTK8o0eGZqzd+TNdd0='
