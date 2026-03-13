@@ -1,3 +1,3 @@
 # Website
 
-This is the source code for my personal website.
+This is my personal website.
