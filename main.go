@@ -244,10 +244,21 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	posts, _, err := loadPosts("", "")
+	if err != nil {
+		log.Printf("warn: loading posts for index: %v", err)
+	}
+
+	const maxRecent = 3
+	if len(posts) > maxRecent {
+		posts = posts[:maxRecent]
+	}
+
 	renderPage(w, "index", PageData{
 		SiteName: siteName,
 		Title:    siteName,
 		NavPath:  "/",
+		Posts:    posts,
 	})
 }
 

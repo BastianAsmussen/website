@@ -1,7 +1,7 @@
 {{define "content"}}
 <div class="mt-4">
   <!-- Site name with gradient -->
-  <h1 class="text-5xl font-bold mb-10" style="
+  <h1 class="text-5xl font-bold mb-3 cursor-blink" style="
       background: linear-gradient(90deg, var(--ctp-accent), var(--ctp-teal));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -10,25 +10,56 @@
     {{.SiteName}}
   </h1>
 
+  <!-- Tagline -->
+  <p class="text-sm mb-10 animate-item" style="color: var(--ctp-muted); animation-delay: 0.05s">
+    systems programmer · rust · nix
+  </p>
+
   <!-- Tree view -->
-  <div class="text-ctp-muted select-none">.</div>
+  <div class="text-ctp-muted select-none animate-item" style="animation-delay: 0.1s">.</div>
   <div class="pl-0 space-y-1">
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2 animate-item" style="animation-delay: 0.2s">
       <span class="text-ctp-surface select-none">├──</span>
       <a href="/posts" class="text-ctp-teal hover:text-ctp-accent transition-colors">posts/</a>
     </div>
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2 animate-item" style="animation-delay: 0.3s">
       <span class="text-ctp-surface select-none">├──</span>
       <a href="/projects" class="text-ctp-teal hover:text-ctp-accent transition-colors">projects.md</a>
     </div>
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2 animate-item" style="animation-delay: 0.4s">
       <span class="text-ctp-surface select-none">├──</span>
       <a href="/about" class="text-ctp-teal hover:text-ctp-accent transition-colors">about.md</a>
     </div>
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2 animate-item" style="animation-delay: 0.5s">
       <span class="text-ctp-surface select-none">└──</span>
-      <link rel="alternate" type="application/rss+xml" title="rss.xml" href="/feed.xml" />
+      <a href="/feed.xml" class="text-ctp-teal hover:text-ctp-accent transition-colors">feed.xml</a>
     </div>
   </div>
+
+  <!-- Recent posts -->
+  {{if .Posts}}
+  <div class="mt-10 animate-item" style="animation-delay: 0.6s">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="text-xs select-none" style="color: var(--ctp-muted);">── recent</span>
+      <div class="flex-1 h-px" style="background: var(--ctp-surface);"></div>
+    </div>
+    <ul class="space-y-3">
+      {{range .Posts}}
+      <li class="flex items-baseline gap-3 text-sm flex-wrap">
+        {{if not (isZero .Date)}}
+        <time class="text-xs shrink-0" style="color: var(--ctp-muted);">{{formatDate .Date}}</time>
+        {{end}}
+        <a href="/posts/{{.Category}}/{{.Slug}}"
+           class="hover:text-ctp-accent transition-colors"
+           style="color: var(--ctp-text);">{{.Title}}</a>
+        <span class="cat-{{.Category}} shrink-0">{{.Category}}</span>
+      </li>
+      {{end}}
+    </ul>
+    <a href="/posts"
+       class="mt-5 inline-block text-xs hover:text-ctp-accent transition-colors"
+       style="color: var(--ctp-muted);">all posts →</a>
+  </div>
+  {{end}}
 </div>
 {{end}}

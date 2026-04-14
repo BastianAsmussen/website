@@ -1,5 +1,6 @@
 result*
 node_modules
+website
 
 .env
 !.env.example

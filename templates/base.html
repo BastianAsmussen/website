@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/static/css/style.css" />
+  <link rel="alternate" type="application/rss+xml" title="{{.SiteName}}" href="/feed.xml" />
   <!-- theme flicker prevention: apply stored preference before paint -->
   <script>
     (function(){var t=localStorage.getItem('theme');if(t==='light'){document.documentElement.classList.remove('dark');}else{document.documentElement.classList.add('dark');}})();
@@ -20,13 +21,13 @@
     <nav class="max-w-3xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
       <div class="flex items-center gap-4 sm:gap-6 text-sm flex-wrap">
         <a href="/"
-           class="{{if eq .NavPath "/"}}text-ctp-accent{{else}}text-ctp-subtext hover:text-ctp-text{{end}} transition-colors">~/</a>
+           class="nav-link {{if eq .NavPath "/"}}text-ctp-accent{{else}}text-ctp-subtext hover:text-ctp-text{{end}} transition-colors">~/</a>
         <a href="/posts"
-           class="{{if eq .NavPath "/posts"}}text-ctp-accent{{else}}text-ctp-subtext hover:text-ctp-text{{end}} transition-colors">~/posts/</a>
+           class="nav-link {{if eq .NavPath "/posts"}}text-ctp-accent{{else}}text-ctp-subtext hover:text-ctp-text{{end}} transition-colors">~/posts/</a>
         <a href="/projects"
-           class="{{if eq .NavPath "/projects"}}text-ctp-accent{{else}}text-ctp-subtext hover:text-ctp-text{{end}} transition-colors">~/projects.md</a>
+           class="nav-link {{if eq .NavPath "/projects"}}text-ctp-accent{{else}}text-ctp-subtext hover:text-ctp-text{{end}} transition-colors">~/projects.md</a>
         <a href="/about"
-           class="{{if eq .NavPath "/about"}}text-ctp-accent{{else}}text-ctp-subtext hover:text-ctp-text{{end}} transition-colors">~/about.md</a>
+           class="nav-link {{if eq .NavPath "/about"}}text-ctp-accent{{else}}text-ctp-subtext hover:text-ctp-text{{end}} transition-colors">~/about.md</a>
       </div>
 
       <!-- theme toggle -->
@@ -46,7 +47,7 @@
   </header>
 
   <!-- Content -->
-  <main class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+  <main class="max-w-3xl mx-auto px-4 sm:px-6 py-12 animate-page">
     {{block "content" .}}{{end}}
   </main>
 
