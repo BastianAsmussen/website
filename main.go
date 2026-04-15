@@ -3,12 +3,14 @@ package main
 import (
 	"bytes"
 	"encoding/xml"
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
 	"os"
 	"path/filepath"
 	"sort"
+	"strconv"
 	"strings"
 	"time"
 
@@ -41,6 +43,9 @@ type PageData struct {
 	AllTags     []string
 	SelectedTag string
 }
+
+// Stamped once at startup; used as a cache-busting version for static assets.
+var buildTag = strconv.FormatInt(time.Now().UnixMilli(), 36)
 
 var mdParser = goldmark.New(
 	goldmark.WithExtensions(
@@ -202,6 +207,17 @@ var tmplFuncs = template.FuncMap{
 	"join":       strings.Join,
 	"formatDate": func(t time.Time) string { return t.Format("2006-01-02") },
 	"isZero":     func(t time.Time) bool { return t.IsZero() },
+	"staticVer":  func() string { return buildTag },
+}
+
+// staticCache wraps a handler, adding a one-year Cache-Control header for static assets.
+// Combined with the buildTag query param in templates, this gives immutable caching with
+// automatic cache-busting on server restart / redeploy.
+func staticCache(h http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Cache-Control", fmt.Sprintf("public, max-age=31536000, immutable"))
+		h.ServeHTTP(w, r)
+	})
 }
 
 // renderPage renders base.html + the given page template (full page).
@@ -449,10 +465,10 @@ func main() {
 	mux.HandleFunc("/projects", projectsHandler)
 	mux.HandleFunc("/about", aboutHandler)
 	mux.HandleFunc("/feed.xml", rssHandler)
-	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
-	mux.HandleFunc("/favicon.ico", func(w http.ResponseWriter, r *http.Request) {
+	mux.Handle("/static/", staticCache(http.StripPrefix("/static/", http.FileServer(http.Dir("static")))))
+	mux.Handle("/favicon.ico", staticCache(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "static/favicon.ico")
-	})
+	})))
 
 	addr := ":8080"
 	if p := os.Getenv("PORT"); p != "" {
