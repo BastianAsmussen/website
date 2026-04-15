@@ -450,6 +450,9 @@ func main() {
 	mux.HandleFunc("/about", aboutHandler)
 	mux.HandleFunc("/feed.xml", rssHandler)
 	mux.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+	mux.HandleFunc("/favicon.ico", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "static/favicon.ico")
+	})
 
 	addr := ":8080"
 	if p := os.Getenv("PORT"); p != "" {
