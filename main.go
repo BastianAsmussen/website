@@ -466,6 +466,12 @@ func main() {
 	mux.HandleFunc("/about", aboutHandler)
 	mux.HandleFunc("/feed.xml", rssHandler)
 	mux.Handle("/static/", staticCache(http.StripPrefix("/static/", http.FileServer(http.Dir("static")))))
+	mux.Handle("/robots.txt", staticCache(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "static/robots.txt")
+	})))
+	mux.Handle("/sitemap.xml", staticCache(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "static/sitemap.xml")
+	})))
 	mux.Handle("/favicon.ico", staticCache(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, "static/favicon.ico")
 	})))
