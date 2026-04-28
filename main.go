@@ -471,9 +471,9 @@ func main() {
 	}
 
 	mux.Handle("/static/", staticCache(http.StripPrefix("/static/", http.FileServer(http.Dir("static")))))
-	mux.Handle("/robots.txt", serveStatic("public/robots.txt"))
-	mux.Handle("/sitemap.xml", serveStatic("public/sitemap.xml"))
-	mux.Handle("/favicon.ico", serveStatic("public/favicon.ico"))
+	mux.Handle("/robots.txt", serveStatic("static/public/robots.txt"))
+	mux.Handle("/sitemap.xml", serveStatic("static/public/sitemap.xml"))
+	mux.Handle("/favicon.ico", serveStatic("static/public/favicon.ico"))
 
 	addr := ":8080"
 	if p := os.Getenv("PORT"); p != "" {
