@@ -14,7 +14,7 @@
 }:
 buildGoApplication {
   pname = "website";
-  version = "0.1.1";
+  version = "0.1.2";
   pwd = ./.;
   src = ./.;
   modules = ./gomod2nix.toml;

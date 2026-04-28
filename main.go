@@ -393,6 +393,18 @@ type rssFeed struct {
 	Channel rssChannel `xml:"channel"`
 }
 
+type urlset struct {
+	XMLName xml.Name     `xml:"http://www.sitemaps.org/schemas/sitemap/0.9 urlset"`
+	URLs    []sitemapURL `xml:"url"`
+}
+
+type sitemapURL struct {
+	Loc        string `xml:"loc"`
+	LastMod    string `xml:"lastmod,omitempty"`
+	ChangeFreq string `xml:"changefreq,omitempty"`
+	Priority   string `xml:"priority,omitempty"`
+}
+
 func rssHandler(w http.ResponseWriter, r *http.Request) {
 	posts, _, err := loadPosts("", "")
 	if err != nil {
@@ -445,6 +457,77 @@ func rssHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write(out)
 }
 
+func sitemapHandler(w http.ResponseWriter, r *http.Request) {
+	posts, _, err := loadPosts("", "")
+	if err != nil {
+		http.Error(w, "error building sitemap", http.StatusInternalServerError)
+		return
+	}
+
+	scheme := "https"
+	if r.TLS == nil && r.Header.Get("X-Forwarded-Proto") != "https" {
+		scheme = "http"
+	}
+	baseURL := scheme + "://" + r.Host
+
+	var urls []sitemapURL
+
+	// Default lastmod to current time for static routes if we don't have posts to infer from
+	lastModStr := time.Now().UTC().Format("2006-01-02")
+	if len(posts) > 0 && !posts[0].Date.IsZero() {
+		lastModStr = posts[0].Date.UTC().Format("2006-01-02")
+	}
+
+	// Define static routes with their priorities and change frequencies
+	staticRoutes := []struct {
+		route      string
+		priority   string
+		changeFreq string
+	}{
+		{route: "", priority: "1.0", changeFreq: "daily"},
+		{route: "/about", priority: "0.8", changeFreq: "monthly"},
+		{route: "/projects", priority: "0.8", changeFreq: "monthly"},
+		{route: "/posts", priority: "0.8", changeFreq: "weekly"},
+	}
+
+	for _, sr := range staticRoutes {
+		urls = append(urls, sitemapURL{
+			Loc:        baseURL + sr.route,
+			LastMod:    lastModStr,
+			ChangeFreq: sr.changeFreq,
+			Priority:   sr.priority,
+		})
+	}
+
+	// Add dynamic post routes
+	for _, p := range posts {
+		dateStr := ""
+		if !p.Date.IsZero() {
+			dateStr = p.Date.UTC().Format("2006-01-02")
+		}
+		urls = append(urls, sitemapURL{
+			Loc:        baseURL + "/posts/" + p.Category + "/" + p.Slug,
+			LastMod:    dateStr,
+			ChangeFreq: "monthly",
+			Priority:   "0.6",
+		})
+	}
+
+	sitemap := urlset{
+		URLs: urls,
+	}
+
+	out, err := xml.MarshalIndent(sitemap, "", "  ")
+	if err != nil {
+		http.Error(w, "error encoding sitemap", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/xml; charset=utf-8")
+	w.Write([]byte(xml.Header))
+	w.Write(out)
+}
+
 const siteName = "Bastian Asmussen"
 
 func main() {
@@ -464,6 +547,7 @@ func main() {
 	mux.HandleFunc("/projects", projectsHandler)
 	mux.HandleFunc("/about", aboutHandler)
 	mux.HandleFunc("/feed.xml", rssHandler)
+	mux.HandleFunc("/sitemap.xml", sitemapHandler)
 	serveStatic := func(path string) http.Handler {
 		return staticCache(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			http.ServeFile(w, r, path)
@@ -472,7 +556,6 @@ func main() {
 
 	mux.Handle("/static/", staticCache(http.StripPrefix("/static/", http.FileServer(http.Dir("static")))))
 	mux.Handle("/robots.txt", serveStatic("static/public/robots.txt"))
-	mux.Handle("/sitemap.xml", serveStatic("static/public/sitemap.xml"))
 	mux.Handle("/favicon.ico", serveStatic("static/public/favicon.ico"))
 
 	addr := ":8080"
