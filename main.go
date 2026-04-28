@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"encoding/xml"
-	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -215,7 +214,7 @@ var tmplFuncs = template.FuncMap{
 // automatic cache-busting on server restart / redeploy.
 func staticCache(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Cache-Control", fmt.Sprintf("public, max-age=31536000, immutable"))
+		w.Header().Set("Cache-Control", "public, max-age=31536000, immutable")
 		h.ServeHTTP(w, r)
 	})
 }
@@ -465,16 +464,16 @@ func main() {
 	mux.HandleFunc("/projects", projectsHandler)
 	mux.HandleFunc("/about", aboutHandler)
 	mux.HandleFunc("/feed.xml", rssHandler)
+	serveStatic := func(path string) http.Handler {
+		return staticCache(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			http.ServeFile(w, r, path)
+		}))
+	}
+
 	mux.Handle("/static/", staticCache(http.StripPrefix("/static/", http.FileServer(http.Dir("static")))))
-	mux.Handle("/robots.txt", staticCache(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "static/robots.txt")
-	})))
-	mux.Handle("/sitemap.xml", staticCache(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "static/sitemap.xml")
-	})))
-	mux.Handle("/favicon.ico", staticCache(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "static/favicon.ico")
-	})))
+	mux.Handle("/robots.txt", serveStatic("public/robots.txt"))
+	mux.Handle("/sitemap.xml", serveStatic("public/sitemap.xml"))
+	mux.Handle("/favicon.ico", serveStatic("public/favicon.ico"))
 
 	addr := ":8080"
 	if p := os.Getenv("PORT"); p != "" {
